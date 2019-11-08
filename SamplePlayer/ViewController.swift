@@ -10,14 +10,27 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet var nextButton: UIButton!
+    @IBOutlet var fadeButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Maestro.shared.setUp()
+        Maestro.shared.playFirstTrack()
     }
     
-    @IBAction func nextTapped(_ sender: Any) {
+    @IBAction func nextTapped(_ sender: UIButton) {
         Maestro.shared.next()
+        
+        nextButton.isEnabled = false
+        fadeButton.isEnabled = false
+    }
+    
+    @IBAction func fadeTapped(_ sender: UIButton) {
+        Maestro.shared.fadeAndStartNext()
+        
+        nextButton.isEnabled = false
+        fadeButton.isEnabled = false
     }
 
 }

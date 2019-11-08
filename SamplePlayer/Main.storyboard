@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kLe-dD-QvP">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kLe-dD-QvP">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,21 +16,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nWp-jH-xyU">
-                                <rect key="frame" x="39" y="81" width="32" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Next"/>
-                                <connections>
-                                    <action selector="nextTapped:" destination="kLe-dD-QvP" eventType="touchUpInside" id="pfe-Fw-Cje"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Dcg-tT-bYF">
+                                <rect key="frame" x="20" y="44" width="374" height="818"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nWp-jH-xyU">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Ayi-wb-JH9"/>
+                                        </constraints>
+                                        <state key="normal" title="Next Song"/>
+                                        <connections>
+                                            <action selector="nextTapped:" destination="kLe-dD-QvP" eventType="touchUpInside" id="pfe-Fw-Cje"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00h-gA-uzU">
+                                        <rect key="frame" x="0.0" y="50" width="374" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="POV-2r-ki1"/>
+                                        </constraints>
+                                        <state key="normal" title="Fade and Start Next Song"/>
+                                        <connections>
+                                            <action selector="fadeTapped:" destination="kLe-dD-QvP" eventType="touchUpInside" id="znV-ln-OeH"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOv-po-cck">
+                                        <rect key="frame" x="0.0" y="100" width="374" height="718"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Dcg-tT-bYF" firstAttribute="top" secondItem="eP5-vm-rww" secondAttribute="top" id="DZs-0M-Oka"/>
+                            <constraint firstItem="eP5-vm-rww" firstAttribute="bottom" secondItem="Dcg-tT-bYF" secondAttribute="bottom" id="PRs-Y1-Q3s"/>
+                            <constraint firstItem="eP5-vm-rww" firstAttribute="trailing" secondItem="Dcg-tT-bYF" secondAttribute="trailing" constant="20" id="ccM-dX-Dku"/>
+                            <constraint firstItem="Dcg-tT-bYF" firstAttribute="leading" secondItem="eP5-vm-rww" secondAttribute="leading" constant="20" id="mA0-cx-zn3"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="eP5-vm-rww"/>
                     </view>
+                    <connections>
+                        <outlet property="fadeButton" destination="00h-gA-uzU" id="gB4-NC-9mB"/>
+                        <outlet property="nextButton" destination="nWp-jH-xyU" id="20u-G1-g9o"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4xT-mI-zTe" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="139" y="90"/>
         </scene>
     </scenes>
 </document>

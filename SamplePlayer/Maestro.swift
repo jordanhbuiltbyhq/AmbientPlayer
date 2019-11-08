@@ -9,70 +9,54 @@
 import Foundation
 import AudioKit
 
-final class Maestro : NSObject {
+final class Maestro: NSObject {
+    
     static let shared = Maestro()
     
-    var audioPlayers = [TrackPlayer]()
+    var trackPlayers = [AKPlayer]()
     
     let trackURLs = [
         Bundle.main.url(forResource: "SampleAudio_0.7mb", withExtension: "mp3")!,
         Bundle.main.url(forResource: "SampleAudio_0.4mb", withExtension: "mp3")!
     ]
     
-    func setUp() {
-        setUpTrackPlayers(fileURL: trackURLs.first!)
-        play()
+    func playFirstTrack() {
+        playNewPlayer(fileURL: trackURLs[0])
     }
     
-    func setUpTrackPlayers(fileURL: URL) {
-        let playerOne = TrackPlayer(url: fileURL)
-        audioPlayers.append(playerOne)
+    func playNewPlayer(fileURL: URL) {
+        let newPlayer = AKPlayer(url: fileURL)!
+        trackPlayers.append(newPlayer)
         
-        AudioKit.output = playerOne.handleMixerChain() //boom
+        AudioKit.output = newPlayer //boom
         
         do {
             try AudioKit.start()
-            playerOne.play()
+            newPlayer.play()
         } catch {
             print("Maestro AudioKit.start error: \(error)")
         }
     }
     
     func next() {
-        for player in audioPlayers {
-            player.stop()
-        }
-        audioPlayers.removeAll()
-        
-        setUpTrackPlayers(fileURL: trackURLs.last!)
-    }
-    
-    func play() {
-        
-    }
-}
+        trackPlayers.forEach { $0.stop() }
+        trackPlayers.removeAll()
 
-final class TrackPlayer {
-    let player : AKPlayer
-    lazy var timePitch = AKTimePitch()
-    
-    init(url: URL) {
-        player = AKPlayer(url: url)!
+        do {
+            try AudioKit.stop()
+        } catch {
+            print("Maestro AudioKit.stop error: \(error)")
+        }
+        
+        playNewPlayer(fileURL: trackURLs[1])
     }
     
-    func handleMixerChain(pitch: Double = 0.0, tempo: Double = 1.0) -> AKTimePitch {
-        timePitch = AKTimePitch(player)
-        timePitch.pitch = pitch
-        timePitch.rate = tempo
-        return timePitch
-    }
-    
-    func play() {
-        player.play()
-    }
-    
-    func stop() {
-        player.stop()
+    func fadeAndStartNext() {
+        //TODO: This crashes because we change the output without stopping AudioKit
+        //but we can't stop playback of the first AKPlayer
+        //Note that the fading logic is not included here
+        
+        playNewPlayer(fileURL: trackURLs[1])
     }
     
 }
