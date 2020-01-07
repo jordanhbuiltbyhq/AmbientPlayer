@@ -13,61 +13,55 @@ final class Maestro: NSObject {
     
     static let shared = Maestro()
     
-    private var trackPlayers = [AKPlayer]() {
-        didSet {
-            do {
-                try AudioKit.stop()
-            } catch {
-                print("Maestro AudioKit.stop error: \(error)")
-            }
-            
-            mixer = AKMixer(trackPlayers)
-            AudioKit.output = mixer
-            
-            do {
-                try AudioKit.start()
-            } catch {
-                print("Maestro AudioKit.start error: \(error)")
-            }
-            
-            trackPlayers.forEach {
-                if $0.isPlaying {
-                    let pos = $0.currentTime
-                    $0.stop()
-                    $0.play(from: pos)
-                }
-            }
-        }
-    }
+    private var audioPlayer: AKPlayer?
+    private var ambientPlayer: AKPlayer = {
+        let player = AKPlayer(url: Bundle.main.url(forResource: "drums", withExtension: "wav")!)!
+        player.isLooping = true
+        return player
+    }()
     private var mixer: AKMixer?
     
-    private let trackURLs = [
-        Bundle.main.url(forResource: "SampleAudio_0.4mb", withExtension: "mp3")!,
-        Bundle.main.url(forResource: "SampleAudio_0.7mb", withExtension: "mp3")!
-    ]
+    private let audioFileURL = Bundle.main.url(forResource: "waves", withExtension: "mp3")!
     
-    func playFirstTrack() {
-        playNewPlayer(fileURL: trackURLs[0])
+    func play() {
+        playNewPlayer(fileURL: audioFileURL)
     }
     
     func next() {
-        trackPlayers.forEach { $0.stop() }
-        trackPlayers.removeAll()
-        
-        playNewPlayer(fileURL: trackURLs[1])
-    }
-    
-    func fadeAndStartNext() {
-        playNewPlayer(fileURL: trackURLs[1])
-        
-        //here we would adjust the volume of the players and remove the first player after 3 seconds
+        //In the real app we'd play the next audio file in the playlist but for the demo we'll just play the same file
+        playNewPlayer(fileURL: audioFileURL)
     }
     
     private func playNewPlayer(fileURL: URL) {
-        let newPlayer = AKPlayer(url: fileURL)!
-        trackPlayers.append(newPlayer) //triggers didSet to update AudioKit.output
+        audioPlayer?.stop()
+        audioPlayer = nil
         
-        newPlayer.play()
+        do {
+            try AudioKit.stop()
+        } catch {
+            print("Maestro AudioKit.stop error: \(error)")
+        }
+        
+        audioPlayer = AKPlayer(url: fileURL)!
+        mixer = AKMixer([audioPlayer!, ambientPlayer])
+        AudioKit.output = mixer
+        
+        do {
+            try AudioKit.start()
+        } catch {
+            print("Maestro AudioKit.start error: \(error)")
+        }
+        
+        if ambientPlayer.isPlaying {
+            //need to resume playback from current position
+            let pos = ambientPlayer.currentTime
+            ambientPlayer.stop()
+            ambientPlayer.play(from: pos)
+        } else {
+            ambientPlayer.play()
+        }
+        
+        audioPlayer?.play()
     }
     
 }

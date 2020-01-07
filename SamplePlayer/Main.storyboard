@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kLe-dD-QvP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kLe-dD-QvP">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,27 +20,17 @@
                                 <rect key="frame" x="20" y="44" width="374" height="818"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nWp-jH-xyU">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="Ayi-wb-JH9"/>
+                                            <constraint firstAttribute="height" constant="55" id="Ayi-wb-JH9"/>
                                         </constraints>
-                                        <state key="normal" title="Next Song"/>
+                                        <state key="normal" title="Next"/>
                                         <connections>
                                             <action selector="nextTapped:" destination="kLe-dD-QvP" eventType="touchUpInside" id="pfe-Fw-Cje"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00h-gA-uzU">
-                                        <rect key="frame" x="0.0" y="50" width="374" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="POV-2r-ki1"/>
-                                        </constraints>
-                                        <state key="normal" title="Fade and Start Next Song"/>
-                                        <connections>
-                                            <action selector="fadeTapped:" destination="kLe-dD-QvP" eventType="touchUpInside" id="znV-ln-OeH"/>
-                                        </connections>
-                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOv-po-cck">
-                                        <rect key="frame" x="0.0" y="100" width="374" height="718"/>
+                                        <rect key="frame" x="0.0" y="55" width="374" height="763"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
                                 </subviews>
@@ -56,7 +46,6 @@
                         <viewLayoutGuide key="safeArea" id="eP5-vm-rww"/>
                     </view>
                     <connections>
-                        <outlet property="fadeButton" destination="00h-gA-uzU" id="gB4-NC-9mB"/>
                         <outlet property="nextButton" destination="nWp-jH-xyU" id="20u-G1-g9o"/>
                     </connections>
                 </viewController>
